@@ -1,5 +1,14 @@
 node{
-stage('scm checkout'){
-git ""
-stage('maven-package'){
-mvnHome= tool
+   stage('scm checkout'){
+       git credentialsId: '', url: ''
+   }    
+   stage('Mvn package'){
+     def mvnHome = tool name: 'maven-3', type: 'maven'
+     sh "${mvnHome}/bin/mvn clean package"
+   }
+   stage('Deploy'){
+      ws(''){
+      sh 'cp -r *.war '
+   }
+  }
+ } 
